@@ -4,7 +4,7 @@ $(document).ready(function () {
         getCities(city, processCities);
     });
 });
-
+//queries results for city and calls the callback.
 function getCities(city, resultCallback) {
     $.ajax({
         headers: {
@@ -14,7 +14,7 @@ function getCities(city, resultCallback) {
         success: resultCallback
     });
 }
-
+//display selections for cities and setting up click functionality.
 function processCities(cityDatas) {
     $("#cities").empty();
     $("#restaurants").empty();
@@ -29,7 +29,7 @@ function processCities(cityDatas) {
         displayCity(cityDatas.location_suggestions[selectedCity].id);
     });
 }
-
+//display restaurants in city and updating map
 function displayCity(cityID) {
     $.ajax({
         headers: {
@@ -41,6 +41,33 @@ function displayCity(cityID) {
             for (var i = 0; i < searchDatas.restaurants.length; i++) {
                 $("#restaurants").append("<p>" + searchDatas.restaurants[i].restaurant.name + " with Rating " + searchDatas.restaurants[i].restaurant.user_rating.aggregate_rating + "</p>");
             }
+            displayOnMap(searchDatas.restaurants);
         }
     });
+}
+
+function displayOnMap(restaurants) {
+console.log(restaurants);
+//finds centerpoint on map
+var lng = 0;
+var lat = 0;
+
+for (var i = 0; i < restaurants.length; ++i) {
+    lng += parseFloat(restaurants[i].restaurant.location.longitude);
+    lat += parseFloat(restaurants[i].restaurant.location.latitude);
+}
+
+lng = lng / restaurants.length;
+lat = lat / restaurants.length;
+// centerpoint on city
+var centerPoint = { lat: lat, lng: lng };
+// The map, centered at centerpoint
+var map = new google.maps.Map(
+    document.getElementById('map'), { zoom: 10, center: centerPoint });
+// The marker, positioned at city
+for (var i = 0; i < restaurants.length; ++i) {
+    var position = { lat: parseFloat(restaurants[i].restaurant.location.latitude), lng: parseFloat(restaurants[i].restaurant.location.longitude)};
+    var marker = new google.maps.Marker({ position: position, map: map });
+}
+
 }
