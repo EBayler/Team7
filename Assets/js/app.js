@@ -47,27 +47,39 @@ function displayCity(cityID) {
 }
 
 function displayOnMap(restaurants) {
-console.log(restaurants);
-//finds centerpoint on map
-var lng = 0;
-var lat = 0;
+    console.log(restaurants);
+    //finds centerpoint on map
+    var lng = 0;
+    var lat = 0;
 
-for (var i = 0; i < restaurants.length; ++i) {
-    lng += parseFloat(restaurants[i].restaurant.location.longitude);
-    lat += parseFloat(restaurants[i].restaurant.location.latitude);
-}
+    for (var i = 0; i < restaurants.length; ++i) {
+        lng += parseFloat(restaurants[i].restaurant.location.longitude);
+        lat += parseFloat(restaurants[i].restaurant.location.latitude);
+    }
 
-lng = lng / restaurants.length;
-lat = lat / restaurants.length;
-// centerpoint on city
-var centerPoint = { lat: lat, lng: lng };
-// The map, centered at centerpoint
-var map = new google.maps.Map(
-    document.getElementById('map'), { zoom: 10, center: centerPoint });
-// The marker, positioned at city
-for (var i = 0; i < restaurants.length; ++i) {
-    var position = { lat: parseFloat(restaurants[i].restaurant.location.latitude), lng: parseFloat(restaurants[i].restaurant.location.longitude)};
-    var marker = new google.maps.Marker({ position: position, map: map });
-}
+    lng = lng / restaurants.length;
+    lat = lat / restaurants.length;
+    // centerpoint on city
+    var centerPoint = {
+        lat: lat,
+        lng: lng
+    };
+    // The map, centered at centerpoint
+    var map = new google.maps.Map(
+        document.getElementById('map'), {
+            zoom: 10,
+            center: centerPoint
+        });
+    // The marker, positioned at city
+    for (var i = 0; i < restaurants.length; ++i) {
+        var position = {
+            lat: parseFloat(restaurants[i].restaurant.location.latitude),
+            lng: parseFloat(restaurants[i].restaurant.location.longitude)
+        };
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map
+        });
+    }
 
 }
