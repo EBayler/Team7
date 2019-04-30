@@ -38,8 +38,11 @@ $(document).ready(function () {
                             for (var i = 0; i < data.restaurants.length; i++) {
                                 $("#restaurants").append("<p>" + data.restaurants[i].restaurant.name + " with Rating " + data.restaurants[i].restaurant.user_rating.aggregate_rating + "</p>");
                             }
+                            displayOnMap(data.restaurants);
+                        },
 
-                        }
+
+
                     });
 
 
@@ -49,10 +52,59 @@ $(document).ready(function () {
 
 
             }
+
+
+
+
         });
 
-
     })
+
+
+
+    function displayOnMap(restaurants) {
+        console.log(restaurants);
+        //finds centerpoint on map
+        var lng = 0;
+        var lat = 0;
+
+        for (var i = 0; i < restaurants.length; ++i) {
+            lng += parseFloat(restaurants[i].restaurant.location.longitude);
+            lat += parseFloat(restaurants[i].restaurant.location.latitude);
+        }
+
+        lng = lng / restaurants.length;
+        lat = lat / restaurants.length;
+        // centerpoint on city
+        var centerPoint = {
+            lat: lat,
+            lng: lng
+        };
+        // The map, centered at centerpoint
+        var map = new google.maps.Map(
+            document.getElementById('map'), {
+                zoom: 10,
+                center: centerPoint
+            });
+        // The marker, positioned at city
+        for (var i = 0; i < restaurants.length; ++i) {
+            var position = {
+                lat: parseFloat(restaurants[i].restaurant.location.latitude),
+                lng: parseFloat(restaurants[i].restaurant.location.longitude)
+            };
+            var marker = new google.maps.Marker({
+                position: position,
+                map: map
+            });
+        }
+
+    }
+
+
+
+
+
+
 
 
 
