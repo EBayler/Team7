@@ -7,7 +7,9 @@
     console.log('fired');
     var city = $('#searchForm').val().trim();
      if (city.length==0) {
-        console.log('Please search by: city')
+        console.log('Please search by: city');
+        $('#myModal').modal('show');
+
      } else {
          console.log(city);
      }
