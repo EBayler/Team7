@@ -65,7 +65,7 @@ p {
 }
 
  /* The popup bubble styling. */
- .popup-bubble {
+ .popup-bubble  {
      /* Position the bubble centred-above its parent. */
      position: absolute;
      top: 0;

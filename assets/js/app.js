@@ -9,11 +9,8 @@ $(document).ready(function () {
         var city = $("#searchForm").val();
         getCities(city, processCities);
 
-        if (city.length == 0) {
+        if (city.length === 0) {
             console.log('Please search by: city');
-            $('#myModal').modal('show');
-
-        } else if (Number) {
             $('#myModal').modal('show');
         } else {
             console.log(city);
@@ -48,7 +45,7 @@ $(document).ready(function () {
         $("#searchForm").val("");
         $("#select").on("click", function () {
             var selectedCity = $("input:radio[name='city']:checked").val();
-            displayCity(cityDatas.location_suggestions[selectedCity].id);
+            displayCity(cityDatas.location_suggestions[selectedCity].id);vdd
         });
     }
 
