@@ -39,20 +39,20 @@
     <script>
       // Initialize and add the map
       function initMap() {
-        // The location of Uluru
+        // The location of Denver
         var uluru = {
-          lat: -25.344,
-          lng: 131.036
+          lat: 39.7392,
+          lng: 104.9903 
         };
-        // The map, centered at Uluru
+        // The map, centered at Denver
         var map = new google.maps.Map(
           document.getElementById('map'), {
             zoom: 4,
-            center: uluru
+            center: denver
           });
-        // The marker, positioned at Uluru
+        // The marker, positioned at Denver
         var marker = new google.maps.Marker({
-          position: uluru,
+          position: denver,
           map: map
         });
       }
