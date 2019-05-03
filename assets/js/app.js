@@ -51,22 +51,41 @@ $(document).ready(function () {
 
     restaurantContents = {};
     //display restaurants in city and updating map
-    function displayCity(cityID) {
-        $.ajax({
-            headers: {
-                "x-Zomato-API-Key": "29634845f26e2908bff359556e46203f"
-            },
-            url: "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityID + "&entity_type=city&count=10&establishment_type=7&sort=rating&order=desc",
-            success: function (searchDatas) {
-                $("#restaurants").empty();
-                for (let i = 0; i < searchDatas.restaurants.length; i++) {
-                    console.log(searchDatas.restaurants[i].restaurant.location.address);
-                    var cont = `<p id="restaurant-${i}">${searchDatas.restaurants[i].restaurant.name} <br> Rating: ${searchDatas.restaurants[i].restaurant.user_rating.aggregate_rating} <br/>${searchDatas.restaurants[i].restaurant.location.address} </p>`;
-                    $("#restaurants").append(cont);
-                    restaurantContents[`restaurant-${i}`] = cont;
-                }
-                displayOnMap(searchDatas.restaurants);
-            }
+   function displayCity(cityID) {
+       $.ajax({
+                   headers: {
+                       "x-Zomato-API-Key": "29634845f26e2908bff359556e46203f"
+                   },
+                   url: "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityID + "&entity_type=city&count=10&establishment_type=7&sort=rating&order=desc",
+                   success: function (searchDatas) {
+                       $("#restaurants").empty();
+                       var tBody = $("#targetTable");
+                       for (let i = 0; i < searchDatas.restaurants.length; i++) {
+                           var tRow = $("<tr>");
+                           if (i % 2 === 0) {
+                               tRow.attr('style', 'background-color: gray')
+                           } else {
+                               tRow.attr('style', 'background-color: azure')
+                           }
+                           var restaurant = searchDatas.restaurants[i].restaurant
+                           var nameTd = $("<td>").text(restaurant.name);
+                           var addressTd = $("<td>").text(restaurant.location.address);
+                           var ratingTd = $("<td>").text(restaurant.user_rating.aggregate_rating);
+                           // console.log(searchDatas.restaurants[i].restaurant);
+                           // console.log("NAME:", restaurant.name)
+                           // console.log("ADDRESS:", restaurant.location.address)
+                           // console.log("RATING:", restaurant.user_rating.aggregate_rating)
+                           tRow.append(ratingTd, nameTd, addressTd)
+                           console.log(tRow)
+                           tBody.append(tRow)
+                           console.log(tBody)
+                           var cont = `<p id="restaurant-${i}">${searchDatas.restaurants[i].restaurant.name} with Rating ${searchDatas.restaurants[i].restaurant.user_rating.aggregate_rating} <br/>${searchDatas.restaurants[i].restaurant.location.address} </p>`;
+                           // $("#restaurants").append(cont);
+                           restaurantContents[`restaurant-${i}`] = cont;
+                       }
+                       displayOnMap(searchDatas.restaurants);
+                       //adding name, location and rating into table 
+                   }
         });
     }
 
