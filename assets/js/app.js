@@ -25,7 +25,7 @@ function processCities(cityDatas) {
         $("#cities").append("<input type='radio' id='city" + cityDatas.location_suggestions[i].name + "' name='city' value='" + i + "'>");
         $("#cities").append("<label for='city" + cityDatas.location_suggestions[i].name + "'>" + cityDatas.location_suggestions[i].name + "</label><br/>");
     }
-    $("#cities").append('<button id="select"  class="btn btn-outline-dark">Select</button>');
+    $("#cities").append('<button id="select"  class="btn btn-outline">Select</button>');
     $("#searchForm").val("");
     $("#select").on("click", function () {
         var selectedCity = $("input:radio[name='city']:checked").val();
@@ -45,7 +45,7 @@ function displayCity(cityID) {
             $("#restaurants").empty();
             for (let i = 0; i < searchDatas.restaurants.length; i++) {
                 console.log(searchDatas.restaurants[i].restaurant.location.address);
-                var cont = `<p id="restaurant-${i}">${searchDatas.restaurants[i].restaurant.name} with Rating ${searchDatas.restaurants[i].restaurant.user_rating.aggregate_rating} <br/>${searchDatas.restaurants[i].restaurant.location.address} </p>`;
+                var cont = `<p id="restaurant-${i}">${searchDatas.restaurants[i].restaurant.name} <br> Rating: ${searchDatas.restaurants[i].restaurant.user_rating.aggregate_rating} <br/>${searchDatas.restaurants[i].restaurant.location.address} </p>`;
                 $("#restaurants").append(cont);
                 restaurantContents[`restaurant-${i}`] = cont;
             }
@@ -96,7 +96,7 @@ function displayOnMap(restaurants) {
         });
 
 
-        var contentString = `<p id="restaurant-${i}">${restaurants[i].restaurant.name} with Rating ${restaurants[i].restaurant.user_rating.aggregate_rating} <br/>${restaurants[i].restaurant.location.address} </p>`
+        var contentString = `<p id="restaurant-${i}">${restaurants[i].restaurant.name} <br> Rating: ${restaurants[i].restaurant.user_rating.aggregate_rating} <br/>${restaurants[i].restaurant.location.address} </p>`
 
         var infowindow = new google.maps.InfoWindow({
             content: contentString
@@ -112,32 +112,7 @@ function displayOnMap(restaurants) {
             marker.setPosition(event.latLng);
             //infowindow.content = content;
             infowindow.open(map, marker);
-            // content.innerText = 'Hello World';
-            //var center = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-
-            /*var pos = {
-                lat: parseFloat(event.latLng.lat()),
-                lng: parseFloat(event.latLng.lng())
-            /*var pos = {
-                lat: parseFloat(event.latLng.lat()),
-                lng: parseFloat(event.latLng.lng())
-            
-            }
-            var Popup = createPopupClass();
-            latestPopup = new Popup(
-                new google.maps.LatLng(pos),content
-            );
-            latestPopup.setMap(map);
-            //map.panTo(center);
-            */
-            //     }
-            //     var Popup = createPopupClass();
-            //     latestPopup = new Popup(
-            //         new google.maps.LatLng(pos),content
-            //     );
-            //     latestPopup.setMap(map);
-            //     //map.panTo(center);
-            //     */
+          
         });
 
 
@@ -150,13 +125,7 @@ function displayOnMap(restaurants) {
 
 var latestPopup
 
-/**
- * Returns the Popup class.
- *
- * Unfortunately, the Popup class can only be defined after
- * google.maps.OverlayView is defined, when the Maps API is loaded.
- * This function should be called by initMap.
- */
+
 function createPopupClass() {
     /**
      * A customized popup on the map.
