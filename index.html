@@ -23,13 +23,18 @@
 
 
   <div class="container">
-    <div class="form-search">
-      <label for="searchForm">Search:</label>
-      <input type="search"
-             class="form-control"
-             id="searchForm"
-             placeholder="search by: city">
-    </div>
+    <form>
+      <div class="form-search">
+        <label for="searchForm">Search:</label>
+        <input type="search"
+               class="form-control"
+               id="searchForm"
+               placeholder="search by: city">
+        <div id="modalMsg"></div>
+      </div>
+
+    </form>
+
     <br>
     <button id="submit"
             class="btn btn-outline">Submit</button>
@@ -55,20 +60,20 @@
     <script>
       // Initialize and add the map
       function initMap() {
-        // The location of Uluru
-        var uluru = {
+        // The location of Denver
+        var denver = {
           lat: 39.7392,
-          lng: -104.9903
+          lng: -104.9903, 
         };
-        // The map, centered at Uluru
+        // The map, centered at Denver
         var map = new google.maps.Map(
           document.getElementById('map'), {
             zoom: 4,
-            center: uluru
+            center: denver
           });
-        // The marker, positioned at Uluru
+        // The marker, positioned at Denver
         var marker = new google.maps.Marker({
-          position: uluru,
+          position: denver,
           map: map
         });
       }
@@ -82,6 +87,27 @@
             defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWkeBrVqfiVtRb3r_LkE-QQIEaugGoOYg&callback=initMap">
     </script>
+    <br>
+    <div class="card mx-auto">
+      <div class="beerTable">
+        <div class="card-body sTable">
+          <thead>
+            <tr>
+              <th scope="col">Rating</th>
+              <th scope="col">Name</th>
+              <th scope="col">Address</th>
+              <th scope="col">Phone</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </div>
+      </div>
+    </div>
+    <br><br>
+    <div class="modal fade"
+         id="myModal"
+         role="dialog">
+      <div class="modal-dialog">
 
    <!-- <div class="card mx-auto">
      <div class="beerTable">
@@ -96,8 +122,8 @@
          <tbody id="targetTable"></tbody>
        </div>
      </div>
-   </div> -->
-
+   </div> 
+        
   </div>
 
   <footer>© 2019 | Allison | Emma | Igor | Erika | Surin</footer>
@@ -108,18 +134,12 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
           integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
           crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+          crossorigin="anonymous"></script>
   <!-- TRIVIA APP JS -->
   <script src="assets/js/app.js"></script>
-
-
-    <!-- jQuery CDN-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- TRIVIA APP JS -->
-    <script src="Assets/js/app.js"></script>  
-
-</body>
 
 </body>
 
