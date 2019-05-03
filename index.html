@@ -35,14 +35,30 @@
             class="btn btn-outline">Submit</button>
     <div id="cities"></div>
     <div id="restaurants"></div>
+    <div>
+        <table style="margin-bottom: 50px; width: 100%">
+          <thead>
+            <tr style="background-color: azure">
+              <th>Rating</th>
+              <th>Name</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody id="targetTable">
+            
+          </tbody>
+        </table>
+      </div>
     <div id="map"></div>
+
+
     <script>
       // Initialize and add the map
       function initMap() {
         // The location of Uluru
         var uluru = {
-          lat: -25.344,
-          lng: 131.036
+          lat: 39.7392,
+          lng: -104.9903
         };
         // The map, centered at Uluru
         var map = new google.maps.Map(
@@ -67,7 +83,7 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWkeBrVqfiVtRb3r_LkE-QQIEaugGoOYg&callback=initMap">
     </script>
 
-   <div class="card mx-auto">
+   <!-- <div class="card mx-auto">
      <div class="beerTable">
        <div class="card-body sTable">
          <thead>
@@ -75,13 +91,12 @@
              <th scope="col">Rating</th>
              <th scope="col">Name</th>
              <th scope="col">Address</th>
-             <th scope="col">Phone</th>
            </tr>
          </thead>
-         <tbody></tbody>
+         <tbody id="targetTable"></tbody>
        </div>
      </div>
-   </div>
+   </div> -->
 
   </div>
 

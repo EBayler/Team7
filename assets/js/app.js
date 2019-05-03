@@ -30,6 +30,7 @@ function processCities(cityDatas) {
     $("#select").on("click", function () {
         var selectedCity = $("input:radio[name='city']:checked").val();
         displayCity(cityDatas.location_suggestions[selectedCity].id);
+
     });
 }
 
@@ -43,20 +44,39 @@ function displayCity(cityID) {
         url: "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityID + "&entity_type=city&count=10&establishment_type=7&sort=rating&order=desc",
         success: function (searchDatas) {
             $("#restaurants").empty();
+            var tBody = $("#targetTable");
             for (let i = 0; i < searchDatas.restaurants.length; i++) {
-                console.log(searchDatas.restaurants[i].restaurant.location.address);
+                var tRow = $("<tr>");
+                if (i % 2 === 0){
+                    tRow.attr('style', 'background-color: gray')
+                } else {
+                    tRow.attr('style', 'background-color: azure')
+                }
+                var restaurant = searchDatas.restaurants[i].restaurant
+                var nameTd = $("<td>").text(restaurant.name);
+                var addressTd = $("<td>").text(restaurant.location.address);
+                var ratingTd = $("<td>").text(restaurant.user_rating.aggregate_rating);
+                // console.log(searchDatas.restaurants[i].restaurant);
+                // console.log("NAME:", restaurant.name)
+                // console.log("ADDRESS:", restaurant.location.address)
+                // console.log("RATING:", restaurant.user_rating.aggregate_rating)
+                tRow.append(ratingTd, nameTd, addressTd)
+                console.log(tRow)
+                tBody.append(tRow)
+                console.log(tBody)
                 var cont = `<p id="restaurant-${i}">${searchDatas.restaurants[i].restaurant.name} with Rating ${searchDatas.restaurants[i].restaurant.user_rating.aggregate_rating} <br/>${searchDatas.restaurants[i].restaurant.location.address} </p>`;
-                $("#restaurants").append(cont);
+                // $("#restaurants").append(cont);
                 restaurantContents[`restaurant-${i}`] = cont;
-            }
+            }            
             displayOnMap(searchDatas.restaurants);
+            //adding name, location and rating into table 
         }
     });
 }
 
 
 function displayOnMap(restaurants) {
-    console.log(restaurants);
+    // console.log(restaurants);
     //finds centerpoint on map
     var lng = 0;
     var lat = 0;
@@ -86,7 +106,7 @@ function displayOnMap(restaurants) {
             lng: parseFloat(restaurants[i].restaurant.location.longitude)
 
         };
-        console.log("position", position);
+        // console.log("position", position);
 
         var marker = new google.maps.Marker({
             position: position,
@@ -103,7 +123,7 @@ function displayOnMap(restaurants) {
         });
 
         marker.addListener('click', function (event) {
-            console.log(event);
+            // console.log(event);
             content = document.getElementById(`restaurant-${i}`);
             if (!content) {
                 content = restaurantContents[`restaurant-${i}`];
@@ -218,4 +238,10 @@ function createPopupClass() {
     };
 
     return Popup;
+
+        
+
 }
+
+
+    
