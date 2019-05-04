@@ -1,9 +1,5 @@
 $(document).ready(function () {
-
-
-    $("#submit").on("click", function () {
-
-        event.preventDefault()
+    function onclick() {
         console.log('fired');
 
         var city = $("#searchForm").val();
@@ -16,22 +12,41 @@ $(document).ready(function () {
 
         } else {
             console.log(city);
-            getInfo();
         }
-
-
+    }
+    $("#searchFormForm").submit(function() {
+        var value = $("#searchForm").val();
+        if (value.length !== 0) {
+            onclick();
+        }
+        return false;
+    });
+    $("#searchForm").keyup(function (key) {
+        if (key === 13) {
+            return;
+        }
+        var value = $("#searchForm").val();
+        if (value.length === 0) {
+            $("#submit").prop("disabled", true);
+        } else {
+            $("#submit").prop("disabled", false);
+        }
     });
 
+    $("#submit").on("click", onclick);
 
     var content;
 
     //queries results for city and calls the callback.
     function getCities(city, resultCallback) {
+        var entry = $("#searchForm").val();
+        $("#searchForm").val("");
+        $("#submit").prop("disabled", true);
         $.ajax({
             headers: {
                 "x-Zomato-API-Key": "29634845f26e2908bff359556e46203f"
             },
-            url: "https://developers.zomato.com/api/v2.1/cities?q=" + $("#searchForm").val(),
+            url: "https://developers.zomato.com/api/v2.1/cities?q=" + entry,
             success: resultCallback
         });
     }
@@ -44,30 +59,26 @@ $(document).ready(function () {
             $("#cities").append("<label for='city" + cityDatas.location_suggestions[i].name + "'>" + cityDatas.location_suggestions[i].name + "</label><br/>");
         }
         $("#cities").append('<button id="select"  class="btn btn-outline">Select</button>');
-        $("#searchForm").val("");
         $("#select").on("click", function () {
             var selectedCity = $("input:radio[name='city']:checked").val();
             displayCity(cityDatas.location_suggestions[selectedCity].id);
-            vdd
         });
     }
 
-    restaurantContents = {};
     //display restaurants in city and updating map
     function displayCity(cityID) {
+        restaurantContents = {};
         $.ajax({
             headers: {
                 "x-Zomato-API-Key": "29634845f26e2908bff359556e46203f"
             },
             url: "https://developers.zomato.com/api/v2.1/search?entity_id=" + cityID + "&entity_type=city&count=10&establishment_type=7&sort=rating&order=desc",
             success: function (searchDatas) {
+                $("#results-table").css("display", "block");
                 $("#restaurants").empty();
 
-                var tHead = $("#targetTableHead");
-
-                tHead.append('<tr />').append('<th>Rating</th><th>Name</th><th>Address</th>');
-
                 var tBody = $("#targetTable");
+                tBody.empty();
                 for (let i = 0; i < searchDatas.restaurants.length; i++) {
                     var tRow = $("<tr>");
                     if (i % 2 === 0) {
@@ -96,7 +107,6 @@ $(document).ready(function () {
             }
         });
     }
-
 
     function displayOnMap(restaurants) {
         console.log(restaurants);
@@ -157,17 +167,10 @@ $(document).ready(function () {
                 infowindow.open(map, marker);
 
             });
-
-
-
         }
-
     }
 
-
-
     var latestPopup
-
 
     function createPopupClass() {
         /**
@@ -231,5 +234,4 @@ $(document).ready(function () {
 
         return Popup;
     }
-
 });

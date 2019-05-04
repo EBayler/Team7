@@ -23,7 +23,7 @@
 
 
   <div class="container">
-    <form>
+    <form id="searchFormForm">
       <div class="form-search">
         <label for="searchForm">Search:</label>
         <input type="search"
@@ -35,10 +35,22 @@
       <br>
     </form>
 
-    <button id="submit"
+    <br>
+    <button disabled id="submit"
             class="btn btn-outline">Submit</button>
     <div id="cities"></div>
     <div id="restaurants"></div>
+    <div id="results-table" class="results-table">
+      <table style="margin-bottom: 50px; width: 100%">
+        <thead>
+          <tr style="background-color: azure">
+            <th>Rating</th>
+            <th>Name</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody id="targetTable">
+
 
     <div class="modal fade"
          id="myModal"
@@ -47,9 +59,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button"
-                    class="close"
+                    class="close"></button>
               
-            <h4 class="modal-title"></h4>
+            <h4> class="modal-title"></h4>
           </div>
           <div class="modal-body">
             <p>Please search a valid City!</p>
@@ -65,6 +77,7 @@
 
 
     <div id="map"></div>
+  </div>
 
     <script>
       // Initialize and add the map
