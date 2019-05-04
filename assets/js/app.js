@@ -7,7 +7,9 @@ $(document).ready(function () {
 
         if (city.length === 0) {
             console.log('Please search by: city');
-            $('#myModal').modal('show');
+            $('#myModal').modal('show')
+                // && $('#select').val().hide(); tried many iterations of this to no avail
+
         } else {
             console.log(city);
         }
@@ -74,14 +76,15 @@ $(document).ready(function () {
             success: function (searchDatas) {
                 $("#results-table").css("display", "block");
                 $("#restaurants").empty();
+
                 var tBody = $("#targetTable");
                 tBody.empty();
                 for (let i = 0; i < searchDatas.restaurants.length; i++) {
                     var tRow = $("<tr>");
                     if (i % 2 === 0) {
-                        tRow.attr('style', 'background-color: gray')
+                        tRow.attr('style', 'background-color: #426b999c')
                     } else {
-                        tRow.attr('style', 'background-color: azure')
+                        tRow.attr('style', 'background-color: #ff8200a3')
                     }
                     var restaurant = searchDatas.restaurants[i].restaurant
                     var nameTd = $("<td>").text(restaurant.name);
